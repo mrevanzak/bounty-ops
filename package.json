@@ -1,0 +1,19 @@
+{
+  "name": "bounty-ops",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Agent-operated pipeline for searching, scoring, tracking, and working paid OSS bounties.",
+  "scripts": {
+    "doctor": "bun run scripts/doctor.ts",
+    "import": "bun run scripts/import-discoveries.ts",
+    "normalize": "bun run scripts/normalize-tracker.ts",
+    "score": "bun run scripts/score-bounties.ts",
+    "scan:github": "bun run scripts/scan-github.ts",
+    "status": "bun run scripts/status.ts",
+    "verify": "bun run normalize && bun run score && bun run doctor"
+  },
+  "engines": {
+    "bun": ">=1.1.0"
+  }
+}

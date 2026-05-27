@@ -1,0 +1,9 @@
+node_modules/
+.env
+config/strategy.yml
+config/search.yml
+data/discoveries/*.json
+data/discoveries/*.jsonl
+data/worklog/*.private.md
+tmp/
+.DS_Store

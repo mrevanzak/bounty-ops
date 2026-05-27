@@ -1,0 +1,36 @@
+# Copy to config/search.yml and tune the discovery pipeline.
+
+github_issue_queries:
+  - name: explicit-bounty-label
+    query: 'is:issue is:open label:bounty'
+    limit: 50
+  - name: bounty-in-title
+    query: 'is:issue is:open bounty in:title'
+    limit: 50
+  - name: reward-in-body
+    query: 'is:issue is:open reward bounty in:body'
+    limit: 50
+  - name: funded-good-first-issue
+    query: 'is:issue is:open "good first issue" bounty'
+    limit: 50
+
+bounty_platforms:
+  algora:
+    enabled: true
+    discovery: web
+  polar:
+    enabled: true
+    discovery: web
+  issuehunt:
+    enabled: true
+    discovery: web
+  gitcoin:
+    enabled: false
+    discovery: web3_optional
+
+filters:
+  include_repos: []
+  exclude_repos: []
+  include_languages: []
+  exclude_languages: []
+  minimum_amount_usd: 0

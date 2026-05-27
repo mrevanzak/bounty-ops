@@ -1,0 +1,20 @@
+states:
+  - discovered
+  - shortlisted
+  - researching
+  - claimed
+  - working
+  - blocked
+  - pr_open
+  - review
+  - merged
+  - paid
+  - lost
+  - stale
+  - ignored
+
+terminal_states:
+  - paid
+  - lost
+  - stale
+  - ignored

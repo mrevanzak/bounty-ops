@@ -1,0 +1,30 @@
+# Copy to config/strategy.yml and tune for your bounty workflow.
+
+bounty_strategy:
+  minimum_amount_usd: 100
+  preferred_amount_usd: 500
+  max_active_bounties: 1
+  max_research_minutes_before_decision: 30
+  max_expected_fix_hours: 12
+  default_decision_threshold: 18
+
+work_preferences:
+  prefer:
+    - small reproducible bugs
+    - failing tests with clear expected behavior
+    - CLI/tooling fixes
+    - TypeScript/JavaScript/Python issues
+    - docs only when acceptance criteria are explicit
+  avoid:
+    - unclear payout terms
+    - already crowded issues
+    - maintainers inactive for 30+ days
+    - issues requiring large rewrites before payout
+    - speculative feature requests without maintainer buy-in
+
+risk_policy:
+  require_explicit_payout: true
+  require_open_issue: true
+  require_no_existing_solving_pr: true
+  require_user_approval_before_claiming: true
+  require_user_approval_before_posting: true
