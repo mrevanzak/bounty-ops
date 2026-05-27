@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { parseDiscoveryFilterConfig, shouldKeepDiscovery } from "./discovery-filter";
 
 type Discovery = {
   title?: string;
@@ -9,13 +10,17 @@ type Discovery = {
   source?: string;
   labels?: string[];
   amount_usd?: string;
+  body?: string;
+  created_at?: string;
   updated_at?: string;
 };
 
 const trackerPath = "data/bounties.tsv";
 const headerPath = "templates/tracker-header.tsv";
 const discoveriesDir = "data/discoveries";
+const searchConfigPath = fs.existsSync("config/search.yml") ? "config/search.yml" : "config/search.example.yml";
 const header = fs.readFileSync(headerPath, "utf8").trim();
+const filterConfig = parseDiscoveryFilterConfig(fs.readFileSync(searchConfigPath, "utf8"));
 const columns = header.split("\t");
 const columnIndex = Object.fromEntries(columns.map((name, index) => [name, index])) as Record<string, number>;
 
@@ -101,10 +106,16 @@ const rows = readTracker();
 const seenIssueUrls = new Set(rows.map((row) => row[columnIndex.issue_url]).filter(Boolean));
 let nextNumericId = Number(nextId(rows).slice("BNTY-".length));
 let imported = 0;
+let filtered = 0;
 
 for (const discovery of readDiscoveries()) {
   const issueUrl = discovery.issue_url?.trim();
   if (!issueUrl || seenIssueUrls.has(issueUrl)) continue;
+  const filterResult = shouldKeepDiscovery(discovery, filterConfig);
+  if (!filterResult.keep) {
+    filtered += 1;
+    continue;
+  }
 
   const id = `BNTY-${String(nextNumericId).padStart(4, "0")}`;
   nextNumericId += 1;
@@ -114,4 +125,4 @@ for (const discovery of readDiscoveries()) {
 }
 
 fs.writeFileSync(trackerPath, `${header}\n${rows.map((row) => row.join("\t")).join("\n")}${rows.length ? "\n" : ""}`);
-console.log(`imported ${imported} bounty discoveries`);
+console.log(`imported ${imported} bounty discoveries (${filtered} filtered)`);

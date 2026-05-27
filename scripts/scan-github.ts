@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import { spawnSync } from "node:child_process";
+import { parseDiscoveryFilterConfig, shouldKeepDiscovery } from "./discovery-filter";
 
 type SearchQuery = {
   name: string;
@@ -20,6 +21,7 @@ type Discovery = {
   updated_at: string;
   bounty_url: string;
   amount_usd: string;
+  body: string;
 };
 
 const configPath = fs.existsSync("config/search.yml")
@@ -115,6 +117,7 @@ function normalizeGhIssue(raw: unknown, query: SearchQuery): Discovery | null {
     updated_at: String(issue.updatedAt ?? issue.updated_at ?? ""),
     bounty_url: extractBountyUrl(searchableText),
     amount_usd: extractAmount(searchableText),
+    body,
   };
 }
 
@@ -128,6 +131,7 @@ if (!ghAvailable()) {
 }
 
 const queries = parseQueries(fs.readFileSync(configPath, "utf8"));
+const filterConfig = parseDiscoveryFilterConfig(fs.readFileSync(configPath, "utf8"));
 if (queries.length === 0) {
   console.error(`no github_issue_queries found in ${configPath}`);
   process.exit(1);
@@ -137,6 +141,7 @@ fs.mkdirSync(discoveriesDir, { recursive: true });
 const outputPath = `${discoveriesDir}/${today()}-github.jsonl`;
 const seen = new Set<string>();
 const discoveries: Discovery[] = [];
+let filtered = 0;
 
 for (const query of queries) {
   const result = spawnSync(
@@ -162,10 +167,15 @@ for (const query of queries) {
   for (const issue of issues) {
     const discovery = normalizeGhIssue(issue, query);
     if (!discovery || seen.has(discovery.issue_url)) continue;
+    const filterResult = shouldKeepDiscovery(discovery, filterConfig);
+    if (!filterResult.keep) {
+      filtered += 1;
+      continue;
+    }
     seen.add(discovery.issue_url);
     discoveries.push(discovery);
   }
 }
 
 fs.writeFileSync(outputPath, discoveries.map((discovery) => JSON.stringify(discovery)).join("\n") + (discoveries.length ? "\n" : ""));
-console.log(`wrote ${discoveries.length} GitHub discoveries to ${outputPath}`);
+console.log(`wrote ${discoveries.length} GitHub discoveries to ${outputPath} (${filtered} filtered)`);

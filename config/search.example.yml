@@ -30,7 +30,23 @@ bounty_platforms:
 
 filters:
   include_repos: []
-  exclude_repos: []
+  exclude_repos:
+    - SecureBananaLabs/bug-bounty
   include_languages: []
   exclude_languages: []
   minimum_amount_usd: 0
+  require_explicit_usd_amount: true
+  max_issue_age_days: 180
+  require_updated_within_days: 45
+  reject_reserved: true
+  reject_assigned: true
+  exclude_terms:
+    - synthetic
+    - research sandbox
+    - autonomous AI agents
+    - automated code-generation scrapers
+    - human submissions are not wanted
+    - closed without review or payout
+    - developer skills challenge
+    - marketing
+    - promotion
