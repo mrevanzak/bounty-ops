@@ -11,6 +11,7 @@ Route intent:
 - Choose what to work on → `modes/rank.md`
 - Start a specific bounty → `modes/start.md`
 - Show pipeline → `modes/status.md`
+- Configure onboarding → `modes/onboard.md`
 
 ## Default response
 

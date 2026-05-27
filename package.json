@@ -10,7 +10,9 @@
     "normalize": "bun run scripts/normalize-tracker.ts",
     "score": "bun run scripts/score-bounties.ts",
     "scan:github": "bun run scripts/scan-github.ts",
+    "setup": "bun run scripts/setup.ts",
     "status": "bun run scripts/status.ts",
+    "test": "bun test",
     "verify": "bun run normalize && bun run score && bun run doctor"
   },
   "engines": {

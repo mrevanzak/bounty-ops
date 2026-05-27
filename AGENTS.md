@@ -30,6 +30,7 @@ Help the user find, evaluate, track, and work paid OSS bounties with discipline.
 When the user asks:
 
 - “scan” / “find bounties” → follow `modes/scan.md`
+- “onboard” / “setup” / “configure bounty ops” → follow `modes/onboard.md`
 - “evaluate this” → follow `modes/evaluate.md`
 - “rank” / “what should I work on” → follow `modes/rank.md`
 - “start BNTY-…” → follow `modes/start.md`

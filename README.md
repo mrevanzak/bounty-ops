@@ -16,8 +16,7 @@ Inspired by `career-ops`, this repo is a local command center: open it with Open
 
 ```bash
 bun install
-cp config/strategy.example.yml config/strategy.yml
-cp config/search.example.yml config/search.yml
+bun run setup
 bun run doctor
 ```
 
@@ -25,6 +24,7 @@ Then open this directory in OpenCode and ask:
 
 ```text
 /bounty-ops scan
+/bounty-ops onboard
 /bounty-ops rank
 /bounty-ops evaluate https://github.com/owner/repo/issues/123
 /bounty-ops start BNTY-0001
@@ -51,6 +51,7 @@ bounty-hunter/
 │   └── plans/
 ├── modes/                            # Agent-readable workflows
 │   ├── bounty-ops.md
+│   ├── onboard.md
 │   ├── scan.md
 │   ├── evaluate.md
 │   ├── rank.md
@@ -58,6 +59,7 @@ bounty-hunter/
 │   └── status.md
 ├── scripts/
 │   ├── doctor.ts
+│   ├── setup.ts
 │   ├── normalize-tracker.ts
 │   └── score-bounties.ts
 └── templates/

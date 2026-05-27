@@ -10,12 +10,11 @@
 
 ```bash
 bun install
-cp config/strategy.example.yml config/strategy.yml
-cp config/search.example.yml config/search.yml
+bun run setup
 bun run doctor
 ```
 
-Edit `config/strategy.yml` with bounty selection rules, time limits, and risk policy. Edit `config/search.yml` with GitHub queries, bounty platforms, and filters.
+The setup wizard asks questions and writes `config/strategy.yml` and `config/search.yml`. Existing config files are preserved by default. To configure through an agent instead, ask `/bounty-ops onboard`; the agent should ask one question at a time and write the same config files.
 
 ## GitHub auth
 

@@ -8,6 +8,7 @@ const requiredFiles = [
   "data/bounties.tsv",
   "templates/tracker-header.tsv",
   "templates/states.yml",
+  "modes/onboard.md",
   "modes/scan.md",
   "modes/evaluate.md",
   "modes/rank.md",
