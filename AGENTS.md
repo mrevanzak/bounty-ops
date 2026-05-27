@@ -10,6 +10,7 @@ Help the user find, evaluate, track, and work paid OSS bounties with discipline.
 
 - Do **not** spam maintainers.
 - Do **not** claim bounties the user cannot realistically complete.
+- Do **not** recommend bounty-shaped SEO/clickbait/marketing-funnel issues that exist mainly to drive traffic, signups, or tool usage.
 - Do **not** fabricate repository facts, bounty amounts, maintainer responses, or issue state.
 - Do **not** auto-submit PRs or comments without explicit user approval.
 - Always preserve tracker integrity before and after edits.
